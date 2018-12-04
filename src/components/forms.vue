@@ -1,7 +1,22 @@
 <template>
   <div class="container">
-    <form >
-      <input v-for="(v, i) in fields" :type="v" :key="i">
+    <form>
+      <div>{{ header }}</div>
+      <input
+        v-for="(v, i) in fields"
+        v-model='input1'
+        :type="v"
+        :key="i"
+        @keyup.enter="$emit('eventName')"
+        @contextmenu.prevent="al"
+      >
+      <button
+        @click="$emit('left')"
+        @contextmenu="$emit('right')"
+      >
+      click
+      </button>
+      <div>{{ footer }}</div>
     </form>
   </div>
 </template>
@@ -11,10 +26,26 @@ export default {
   name: 'Forms',
   data(){
     return {
-
+      input1: ''
     }
   },
-  props: ['fields']
+  // props: ['fields', 'header', 'footer']
+  props: {
+    'fields': Array,
+    'header': String,
+    'footer': {
+      type: Number
+    }
+  },
+  methods: {
+    handleEnter(event) {
+      this.$emit('eventName') parentEvent(this.input1)
+      this.input1 = ''
+    },
+    al() {
+      alert()
+    }
+  }
 }
 </script>
 

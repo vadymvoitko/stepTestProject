@@ -1,8 +1,21 @@
 <template>
   <div>
-    <Forms :fields="fields1"></Forms>
-    <Forms :fields="fields2"></Forms>
-    <Forms :fields="fields3"></Forms>
+    <Forms
+    :fields="fields1"
+    header="hello"
+    @eventName="parentEvent"
+    @left="show=true"
+    @right="show=false"
+    >
+    </Forms>
+    <Forms/>
+    <ul>
+      <li v-for="(item, index) in items" :key='index'>
+        {{ item }}
+      </li>
+    </ul>
+    <div v-if="show">123</div>
+
   </div>
 </template>
 
@@ -13,17 +26,21 @@ export default {
     name: 'App',
     data() {
         return {
+          show: false,
           currentView: 'square',
           fields1: ['text', 'radio', 'checkbox', 'submit'],
           fields2: ['text', 'text', 'submit'],
-          fields3: ['text', 'number',  'submit']
+          number1: 11,
+          items: []
         }
     },
     components: {
       Forms
     },
     methods: {
-
+      parentEvent(value){
+        this.items.push(value)
+      }
     }
 }
 </script>
