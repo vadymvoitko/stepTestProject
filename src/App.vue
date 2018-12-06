@@ -4,24 +4,25 @@
             <nav>
                 <a href="#" @click="switchView('square')">Квадрат</a>
                 <a href="#" @click="switchView('triangle')">Треугольник</a>
-                <a href="#" @click="switchView('circle')">Круг</a>
+                <a href="#" @click="switchView('circl')">Круг</a>
                 <a href="#" @click="switchView('egg')">Яйцо</a>
             </nav>
     </header>
 
     <square v-if="currentView == 'square'"/>
-    <circle v-else-if="currentView == 'circle'"/>
+    <circl v-else-if="currentView == 'circl'"/>
     <triangle v-else-if="currentView == 'triangle'"/>
     <egg v-else/>
-
+    <reus></reus>
   </div>
 </template>
 
 <script>
 import square from './components/f1'
-import circle from './components/f2'
+import circl from './components/f2'
 import triangle from './components/f3'
 import egg from './components/f4'
+import Forms from './components/forms'
 
 
 export default {
@@ -33,7 +34,7 @@ export default {
     },
     components: {
       square,
-      circle,
+      circl,
       triangle,
       egg
     },

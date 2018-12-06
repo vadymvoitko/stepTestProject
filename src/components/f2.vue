@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'circle'
+  name: 'circl'
 }
 </script>
