@@ -1,45 +1,45 @@
 <template>
   <div>
-    <Forms
-    :fields="fields1"
-    header="hello"
-    @eventName="parentEvent"
-    @left="show=true"
-    @right="show=false"
-    >
-    </Forms>
-    <Forms/>
-    <ul>
-      <li v-for="(item, index) in items" :key='index'>
-        {{ item }}
-      </li>
-    </ul>
-    <div v-if="show">123</div>
+    <header>
+            <nav>
+                <a href="#" @click="switchView('square')">Квадрат</a>
+                <a href="#" @click="switchView('triangle')">Треугольник</a>
+                <a href="#" @click="switchView('circle')">Круг</a>
+                <a href="#" @click="switchView('egg')">Яйцо</a>
+            </nav>
+    </header>
+
+    <square v-if="currentView == 'square'"/>
+    <circle v-else-if="currentView == 'circle'"/>
+    <triangle v-else-if="currentView == 'triangle'"/>
+    <egg v-else/>
 
   </div>
 </template>
 
 <script>
-import Forms from './components/forms'
+import square from './components/f1'
+import circle from './components/f2'
+import triangle from './components/f3'
+import egg from './components/f4'
+
 
 export default {
     name: 'App',
     data() {
         return {
-          show: false,
-          currentView: 'square',
-          fields1: ['text', 'radio', 'checkbox', 'submit'],
-          fields2: ['text', 'text', 'submit'],
-          number1: 11,
-          items: []
+          currentView: 'square'
         }
     },
     components: {
-      Forms
+      square,
+      circle,
+      triangle,
+      egg
     },
     methods: {
-      parentEvent(value){
-        this.items.push(value)
+      switchView(arg) {
+        this.currentView = arg
       }
     }
 }
