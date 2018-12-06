@@ -1,27 +1,14 @@
 <template>
   <div class="container">
-    <form>
-      <div>{{ header }}</div>
-      <input
-        v-for="(v, i) in fields"
-        v-model='input1'
-        :type="v"
-        :key="i"
-        @keyup.enter="$emit('eventName')"
-        @contextmenu.prevent="al"
-      >
-      <button
-        @click="$emit('left')"
-        @contextmenu="$emit('right')"
-      >
-      click
-      </button>
-      <div>{{ footer }}</div>
-    </form>
+    <div v-for="i in 5" :key="i">
+      {{ i }}
+      <Forms v-if="!count" count='1'/>
+    </div>
   </div>
 </template>
 
 <script>
+import Forms from './forms'
 export default {
   name: 'Forms',
   data(){
@@ -29,19 +16,19 @@ export default {
       input1: ''
     }
   },
+  components: {
+    Forms
+  },
   // props: ['fields', 'header', 'footer']
   props: {
     'fields': Array,
     'header': String,
     'footer': {
       type: Number
-    }
+    },
+    count: String
   },
   methods: {
-    handleEnter(event) {
-      this.$emit('eventName') parentEvent(this.input1)
-      this.input1 = ''
-    },
     al() {
       alert()
     }
