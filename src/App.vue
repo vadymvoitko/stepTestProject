@@ -1,6 +1,10 @@
 <template>
   <div>
+<<<<<<< HEAD
 test
+=======
+
+>>>>>>> 5072d7faf7792bb373916a45780e03d48f771b60
   </div>
 </template>
 
