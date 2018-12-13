@@ -6,9 +6,12 @@
       v-for="(item, index) in answerOptions"
       :key="index"
       class="btn btn-primary answers"
+      @click="insertOption"
     >
     {{ item }}
     </button>
+    <hr>
+    <button @click="proceed">Continue</button>
   </div>
 </template>
 
@@ -40,6 +43,30 @@ export default {
         const newOption = this.expectedResult + this.generateNumber(-10, 10);
         this.answerOptions.push(newOption)
       }
+      this.shuffle(this.answerOptions)
+    },
+    shuffle(targetArray){
+      return targetArray.sort(() => {
+        return Math.random() - 0.5
+      })
+    },
+    insertOption(event){
+      this.result = event.target.innerHTML
+    },
+    proceed () {
+      if (this.result === '?') {
+        alert('Please select the answer');
+        return;
+      }
+      if (this.result == this.expectedResult) {
+        this.$emit('checkOneAnswer', `Your answer is correct !
+        Would you like to proceed`)
+      } else {
+        this.$emit('checkOneAnswer', `Your answer is wrong,
+        Correct answer is ${this.expectedResult}!
+        Would you like to proceed`)
+      }
+      this.$emit('switchView', 'Info')
     }
   },
   created () {
