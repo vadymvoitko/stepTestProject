@@ -56,7 +56,7 @@ export default {
 }
 
 .answers {
-  margin: 10px;
+  margin: 11px;
   width: 70px;
 }
 </style>
