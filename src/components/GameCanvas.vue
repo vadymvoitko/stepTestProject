@@ -1,10 +1,11 @@
 <template>
   <div class="alert alert-secondary greeting">
-    <h1 class="pb-20">Please solve the below equation</h1>
+    <h4 class="pb-20">Please solve the below equation</h4>
     <h2> {{ x }} + {{ y }} = {{ result }} </h2>
     <button
       v-for="(item, index) in answerOptions"
       :key="index"
+      class="btn btn-primary answers"
     >
     {{ item }}
     </button>
@@ -52,5 +53,10 @@ export default {
     width: 70%;
     margin: 20px auto;
     text-align: center;
+}
+
+.answers {
+  margin: 10px;
+  width: 70px;
 }
 </style>
