@@ -12,6 +12,7 @@
     </button>
     <hr>
     <button @click="proceed">Continue</button>
+    {{ test }}
   </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
   data () {
     return {
       x: 0,
+      test: 10,
       y: 0,
       result: '?',
       from: -100,
@@ -30,7 +32,16 @@ export default {
       answerOptions: []
     }
   },
+  timers: {
+    log: { time: 1000, autostart: true, repeat: true }
+  },
   methods: {
+    log () {
+      this.test--
+      if (!this.test) {
+        this.$timer.stop('log')
+      }
+    },
     generateNumber(from, to) {
       return Math.ceil(Math.random()*(to - from) + from)
     },
@@ -61,6 +72,7 @@ export default {
       if (this.result == this.expectedResult) {
         this.$emit('checkOneAnswer', `Your answer is correct !
         Would you like to proceed`)
+        this.$emit('success')
       } else {
         this.$emit('checkOneAnswer', `Your answer is wrong,
         Correct answer is ${this.expectedResult}!

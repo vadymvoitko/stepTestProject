@@ -16,11 +16,19 @@
         <Start @startGame="switchView" v-if="currentView === 'start'"/>
         <GameCanvas
             @switchView="switchView"
+            @success="succeeded++"
             @checkOneAnswer="checkOneAnswer"
             v-else-if="currentView === 'gameCanvas'"/>
         <Info
             :intMessage="intMessage"
+            @switchView1="switchView"
             v-else-if="currentView === 'Info'"/>
+        <Finish
+          :succeeded="succeeded"
+          :numberOfSteps="numberOfSteps"
+          @finalClick="levelCompleted"
+          v-else-if="currentView === 'Finish'"
+        />
     </transition>
   </div>
 </template>
@@ -28,6 +36,7 @@
 <script>
 import Start from './components/start'
 import Info from './components/Info'
+import Finish from './components/Finish'
 import GameCanvas from './components/GameCanvas'
 
 export default {
@@ -37,13 +46,15 @@ export default {
           currentView: 'start',
           intMessage: '',
           currentStep: 0,
-          numberOfSteps: 3
+          numberOfSteps: 3,
+          succeeded: 0
         }
     },
     components: {
       Start,
       GameCanvas,
-      Info
+      Info,
+      Finish
     },
     computed: {
       currentWidth () {
@@ -51,13 +62,26 @@ export default {
       }
     },
     methods: {
-      switchView (view) {
+      switchView (view, token) {
+        if (token) {
+          if (this.currentStep < this.numberOfSteps) {
+            this.currentView = 'gameCanvas'
+          } else {
+            this.currentView = 'Finish'
+          }
+          return;
+        }
         this.currentView = view
       },
       checkOneAnswer (message) {
         this.currentStep++
-        console.log(this.currentStep)
         this.intMessage = message
+      },
+      levelCompleted (token) {
+        console.log('Next level - ', token)
+        this.currentView = 'gameCanvas';
+        this.currentStep = 0;
+        this.succeeded = 0;
       }
     },
     created() {
